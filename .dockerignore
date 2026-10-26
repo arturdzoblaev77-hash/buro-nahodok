@@ -1,0 +1,11 @@
+data/
+__pycache__/
+*.pyc
+.env
+.git
+.gitignore
+.venv/
+*.zip
+Dockerfile
+docker-compose.yml
+CACHEDIR
