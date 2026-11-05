@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Объявление №{{ item.id }} — {{ item.category }}{% endblock %}
+{% block content %}
+<article class="card item single">
+  <div class="thumb big">
+    {% if item.photo_file %}
+    <img src="/photos/{{ item.photo_file }}" alt="{{ item.category }}">
+    {% else %}
+    <div class="ph">🎒</div>
+    {% endif %}
+  </div>
+  <div class="body">
+    <div class="row">
+      <span class="chip">{{ item.category }}</span>
+      <span class="num">№{{ item.id }}</span>
+    </div>
+    {% if item.description %}<h3>{{ item.description }}</h3>{% endif %}
+    <p class="place">📍 Место: {{ item.place }}</p>
+    <p class="meta">
+      {% if item.status == 'found' %}
+        ⏳ Ждёт владельца · найдено {{ item.created_at|defmy }}
+      {% else %}
+        ✅ Возвращена владельцу{% if item.returned_by_name %} — {{ item.returned_by_name }}{% endif %}
+      {% endif %}
+    </p>
+    <p class="meta">Добавлено: {{ item.created_by_name or 'другом' }} · {{ item.created_at|deftime }}</p>    {% if item.status == 'found' %}
+    <form method="post" action="/claim/{{ item.id }}" class="claimform">
+      <input type="text" name="who" placeholder="Как тебя зовут? (необязательно)" maxlength="120">
+      <button class="btn" type="submit">✅ Это моя вещь — забрал!</button>
+    </form>
+    {% else %}
+    <p class="done">Вещь вернулась к владельцу {{ item.returned_at|deftime }} 🎉</p>
+    {% endif %}
+  </div>
+</article>
+<a class="btn ghost" href="/lost">← Ко всем объявлениям</a>
+{% endblock %}

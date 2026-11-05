@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+<p class="lead">{{ subtitle }}</p>
+
+{% if items %}
+<div class="items">
+  {% for it in items %}
+  <article class="card item">
+    <div class="thumb">
+      {% if it.photo_file %}
+      <img src="/photos/{{ it.photo_file }}" alt="{{ it.category }}" loading="lazy">
+      {% else %}
+      <div class="ph">🎒</div>
+      {% endif %}
+    </div>
+    <div class="body">
+      <div class="row">
+        <span class="chip">{{ it.category }}</span>
+        <span class="num">№{{ it.id }}</span>
+      </div>
+      <h3>{% if it.description %}{{ it.description[:64] }}{% else %}{{ it.category }}{% endif %}</h3>
+      <p class="place">📍 {{ it.place }}</p>
+      <p class="meta">
+        {% if it.status == 'found' %}
+          ⏳ Ждёт владельца · найдено {{ it.created_at|defmy }}
+        {% else %}
+          ✅ Возвращена{% if it.returned_by_name %} ({{ it.returned_by_name }}){% endif %} · {{ it.returned_at|defmy }}
+        {% endif %}
+      </p>
+      {% if it.status == 'found' %}
+      <form method="post" action="/claim/{{ it.id }}" class="claimform">
+        <input type="text" name="who" placeholder="Как тебя зовут? (необязательно)" maxlength="120">
+        <button class="btn small" type="submit">✅ Это моя — забрал!</button>
+      </form>
+      {% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% if items|length >= 50 %}
+<div class="pager">
+  {% if page > 0 %}<a class="btn ghost" href="?offset={{ [page - 1, 0] | max * 50 }}">◀️ Назад</a>{% endif %}
+  <a class="btn ghost" href="?offset={{ (page + 1) * 50 }}">Вперёд ▶️</a>
+</div>
+{% endif %}
+{% else %}
+<p class="empty">📭 {{ empty }}</p>
+{% endif %}
+{% endblock %}

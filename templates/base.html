@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{% block title %}Бюро находок{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/">🎒 Бюро находок</a>
+    <nav>
+      <a href="/lost" {% if request.url.path == '/lost' %}class="on"{% endif %}>🔎 Потеряно</a>
+      <a href="/found" {% if request.url.path == '/found' %}class="on"{% endif %}>📦 Нашёл</a>
+      <a href="/archive" {% if request.url.path == '/archive' %}class="on"{% endif %}>📚 Архив</a>
+      <a href="/stats" {% if request.url.path == '/stats' %}class="on"{% endif %}>📊 Учёт</a>
+    </nav>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer>
+    <p>Школьный чат-бот «Бюро находок» · платформа MAX · команда «Помогаторы», Владикавказ</p>
+  </footer>
+</body>
+</html>

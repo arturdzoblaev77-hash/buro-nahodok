@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Бюро находок — все потеряшки школы в одном месте{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>🎒 Бюро находок</h1>
+  <p class="lead">Все потеряшки школы — в одном месте. Объявление о находке попадает в базу мгновенно,
+  а владелец быстро видит, где лежит его вещь.</p>
+  <div class="cta">
+    <a class="btn big" href="/found">📦 Нашёл вещь — добавить объявление</a>
+    <a class="btn ghost big" href="/lost">🔎 Я потерял вещь</a>
+  </div>
+</section>
+
+<section class="grid">
+  <a class="card" href="/lost">
+    <div class="ic">🔎</div>
+    <h3>Потерянные вещи</h3>
+    <p>Объявления о всех вещах, найденных в школе недавно. Среди них можно найти свою потеряшку
+    и узнать, где она находится.</p>
+    <span class="n">{{ st.active }} ждут владельца</span>
+  </a>
+  <a class="card" href="/archive">
+    <div class="ic">📚</div>
+    <h3>Найденные вещи (архив)</h3>
+    <p>Объявления о вещах, которые уже вернули владельцу. Так видно, что теряется чаще всего.</p>
+    <span class="n">{{ st.returned }} вернулись</span>
+  </a>
+  <a class="card" href="/found">
+    <div class="ic">📦</div>
+    <h3>Добавить объявление</h3>
+    <p>Нашёл сменку, пенал или телефон? Заполни форму: место нахождения, фото, категория —
+    и объявление попадёт в базу бюро.</p>
+    <span class="n">2 минуты</span>
+  </a>
+</section>
+
+<section class="statsbar">
+  <div><b>{{ st.total }}</b><span>всего объявлений</span></div>
+  <div><b>{{ st.active }}</b><span>ждут владельца</span></div>
+  <div><b>{{ st.returned }}</b><span>вернулись владельцам</span></div>
+</section>
+{% endblock %}

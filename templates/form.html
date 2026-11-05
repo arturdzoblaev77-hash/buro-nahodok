@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Добавить найденную вещь{% endblock %}
+{% block content %}
+<h1>📦 Новое объявление</h1>
+<p class="lead">Нашёл вещь в школе? Заполни форму — объявление сразу увидят все в разделе «Потеряно».</p>
+
+{% if error %}<div class="err">{{ error }}</div>{% endif %}
+
+<form method="post" action="/found" enctype="multipart/form-data" class="form">
+  <label>Категория
+    <select name="category" required>
+      {% for c in categories %}
+      <option value="{{ c }}" {% if loop.first %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Место нахождения
+    <input type="text" name="place" required maxlength="300"
+           placeholder="Например: кабинет 301 / гардероб, 2-й ряд / спортзал">
+  </label>
+  <label>Описание (необязательно)
+    <textarea name="description" maxlength="500" rows="2"
+              placeholder="Цвет, приметы, что внутри…"></textarea>
+  </label>
+  <label>Фото предмета
+    <input type="file" name="photo" accept="image/*" capture="environment">
+    <small>По желанию, до 10 МБ. С фото вещь находят быстрее.</small>
+  </label>
+  <label>Твоё имя (необязательно)
+    <input type="text" name="who" maxlength="120" placeholder="Чтобы благодарили по имени 🙂">
+  </label>
+  <button class="btn big" type="submit">✅ Опубликовать объявление</button>
+</form>
+{% endblock %}

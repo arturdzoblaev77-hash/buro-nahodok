@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}📊 Учёт потеряшек{% endblock %}
+{% block content %}
+<h1>📊 Учёт потеряшек</h1>
+<p class="lead">Точные цифры пропаж за учебный год — столько вещей прошли через бюро находок.</p>
+
+<section class="statsbar">
+  <div><b>{{ st.total }}</b><span>всего объявлений</span></div>
+  <div><b>{{ st.active }}</b><span>ждут владельца</span></div>
+  <div><b>{{ st.returned }}</b><span>вернулись владельцам</span></div>
+</section>
+
+{% if st.by_category %}
+<section class="card">
+  <h3>Что теряется чаще всего</h3>
+  <table class="cats">
+    {% for cat, cnt in st.by_category.items() %}
+    <tr>
+      <td>{{ cat }}</td>
+      <td class="bar"><span style="width: {{ (cnt * 100 / st.total) | int }}%"></span></td>
+      <td class="c">{{ cnt }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</section>
+{% endif %}
+{% endblock %}

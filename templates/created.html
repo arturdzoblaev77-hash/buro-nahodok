@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Объявление №{{ item_id }} создано!{% endblock %}
+{% block content %}
+<div class="okbox">
+  <h1>✅ Объявление №{{ item_id }} опубликовано!</h1>
+  <p class="lead">Оно уже в базе бюро и в разделе <a href="/lost">«Потеряно»</a>.
+  Когда владелец заберёт вещь — он отметит это на странице объявления,
+  и запись переедет в <a href="/archive">архив</a>.</p>
+  <div class="cta">
+    <a class="btn big" href="/item/{{ item_id }}">Открыть объявление</a>
+    <a class="btn ghost big" href="/found">Добавить ещё одно</a>
+  </div>
+</div>
+{% endblock %}
