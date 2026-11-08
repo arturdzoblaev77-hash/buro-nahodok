@@ -1,0 +1,14 @@
+services:
+  buro-bot:
+    build: .
+    container_name: buro-nahodok
+    restart: unless-stopped
+    env_file: .env            # там лежит BOT_TOKEN
+    environment:
+      HOST: 0.0.0.0
+      PORT: "8000"
+      WEBAPP_PUBLIC_URL: ${WEBAPP_PUBLIC_URL:-http://localhost:8000}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data      # база и фото переживают перезапуск контейнера
